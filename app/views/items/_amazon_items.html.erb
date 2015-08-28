@@ -4,25 +4,34 @@
       <div class="item-box">
         <div class="image">
           <div class="img-wrap">
-            <% #TODO 商品画像 %>
-            <%= image_tag("no-image.png" , alt: item.get('ItemAttributes/Title')) %>
+            <% if item.get('LargeImage/URL').present? %>
+              <%= image_tag item.get('LargeImage/URL') %>
+            <% else %>
+              <%= image_tag("no-image.png") %>
+            <% end %>
           </div>
+          
         </div>
+       
         <div class="detail">
           <p class="title">
-            <% #TODO 商品タイトル %>
-            仮タイトル
+           <%= item.get('ItemAttributes/Title') %>
           </p>
         </div>
+        
         <div class="action clearfix">
-          <%= link_to "" , ownerships_path(asin: item.get('ASIN') , type: "Want") ,
-                      :class => "want-#{item.get('ASIN')} btn-want btn btn-danger btn-sm want",
-                      :remote => true,
-                      :method => :post %>
-          <%= link_to "" , ownerships_path(asin: item.get('ASIN') , type: "Have") ,
-                      :class => "have-#{item.get('ASIN')} btn-have btn btn-warning btn-sm have",
-                      :remote => true,
-                      :method => :post %>
+          <% if current_user.want?(item) %>
+            <%= render partial: 'unwant', locals: {item: item} %>
+          <% else %>
+            <%= render partial: 'want', locals: {item: item} %>
+          <% end %>
+          
+          <% if current_user.have?(item) %>
+            <%= render partial: 'unhave', locals: {item: item} %>
+          <% else %>
+            <%= render partial: 'have', locals: {item: item} %>
+          <% end %>
+
         </div>
       </div>
     <% end %>
