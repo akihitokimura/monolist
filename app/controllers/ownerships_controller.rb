@@ -36,7 +36,7 @@ class OwnershipsController < ApplicationController
       current_user.have(@item)
     elsif params[:type] == "Want"
       current_user.want(@item)
-　  end
+    end
     
   end
   
