@@ -12,8 +12,7 @@ class OwnershipsController < ApplicationController
     if @item.new_record?
       begin
         # TODO 商品情報の取得 Amazon::Ecs.item_lookupを用いてください
-        response = Amazon::Ecs.item_lookup(params[:q] , 
-                                  :search_index => 'All' , 
+        response = Amazon::Ecs.item_lookup(params[:asin] , 
                                   :response_group => 'Medium' , 
                                   :country => 'jp')
       rescue Amazon::RequestError => e
@@ -21,11 +20,11 @@ class OwnershipsController < ApplicationController
       end
     
 
-      amazon_item       = response.items.first
-      @item.title        = amazon_item.get('ItemAttributes/Title')
-      @item.small_image  = amazon_item.get("SmallImage/URL")
-      @item.medium_image = amazon_item.get("MediumImage/URL")
-      @item.large_image  = amazon_item.get("LargeImage/URL")
+      amazon_item = response.items.first
+      @item.title           = amazon_item.get('ItemAttributes/Title')
+      @item.small_image     = amazon_item.get("SmallImage/URL")
+      @item.medium_image    = amazon_item.get("MediumImage/URL")
+      @item.large_image     = amazon_item.get("LargeImage/URL")
       @item.detail_page_url = amazon_item.get("DetailPageURL")
       @item.raw_info        = amazon_item.get_hash
       @item.save!
@@ -40,6 +39,8 @@ class OwnershipsController < ApplicationController
 　  end
     
   end
+  
+
 
   def destroy
     @item = Item.find(params[:item_id])
