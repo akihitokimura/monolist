@@ -1,3 +1,11 @@
+<% content_for :title do %>
+ <%= @user.name %>-monolist
+<% end %>
+<% content_for :description do %>
+ <%= @user.name %>のものページ。<%= @user.name %>が欲しいもの、持っているものを表示しています。
+<% end %>
+
+
 <%= render 'profile' , user: @user %>
 
 
