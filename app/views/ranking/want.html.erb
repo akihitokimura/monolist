@@ -1,0 +1,32 @@
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-contents">
+      <h1>多くの人が欲しい人気の商品</h1>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="container-inner inner-default clearfix">
+    <% @ranking.each_with_index do |ranking, idx| %>
+      <div class="item-box">
+        <div class="image">
+        <nobr><%= idx+1%>位</nobr>
+          <div class="img-wrap">
+            <% if ranking.large_image.present? %>
+             <%= link_to image_tag(ranking.large_image, { :border => '0', :alt => 'Amazon詳細ページへ'}), ranking.detail_page_url %>
+            <% else %>
+              <%= image_tag("no-image.png") %>
+            <% end %>
+          </div>
+        </div>
+        <div class="detail">
+          <p class="title">
+           <%= ranking.title %>
+          </p>
+        </div>
+      </div>
+    <% end %>
+    
+  </div>
+</div>

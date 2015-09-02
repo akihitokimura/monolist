@@ -28,17 +28,7 @@
                       :class => "have-#{item.get('ASIN')} btn-have btn btn-warning btn-sm have",
                       :remote => true,
                       :method => :post %>
-          <%#= if current_user.want?(item) %>
-          <%#= render partial: 'unwant', locals: {item: item} %>
-          <%# else %>
-            <%#= render partial: 'want', locals: {item: item} %>
-          <%# end %>
-          
-          <%# if current_user.have?(item) %>
-            <%#= render partial: 'unhave', locals: {item: item} %>
-          <%# else %>
-            <%#= render partial: 'have', locals: {item: item} %>
-          <%# end %>
+         
         </div>
       </div>
     <% end %>
